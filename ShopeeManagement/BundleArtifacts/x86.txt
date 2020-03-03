@@ -1,0 +1,6 @@
+MainPackage=D:\Work 2019\UWP\ShopeeUp\ShopeeManagement\bin\x86\Release\ShopeeManagement_2.1.8.0_x86.appx
+SymbolPackage=D:\Work 2019\UWP\ShopeeUp\ShopeeManagement\AppPackages\ShopeeManagement_2.1.8.0_Test\ShopeeManagement_2.1.8.0_x86.appxsym
+ResourcePack=D:\Work 2019\UWP\ShopeeUp\ShopeeManagement\bin\x86\Release\ShopeeManagement_2.1.8.0_scale-100.appx
+ResourcePack=D:\Work 2019\UWP\ShopeeUp\ShopeeManagement\bin\x86\Release\ShopeeManagement_2.1.8.0_scale-125.appx
+ResourcePack=D:\Work 2019\UWP\ShopeeUp\ShopeeManagement\bin\x86\Release\ShopeeManagement_2.1.8.0_scale-150.appx
+ResourcePack=D:\Work 2019\UWP\ShopeeUp\ShopeeManagement\bin\x86\Release\ShopeeManagement_2.1.8.0_scale-400.appx

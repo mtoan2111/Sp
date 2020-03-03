@@ -1,0 +1,716 @@
+﻿<Page
+    x:Class="ShopeeManagement.Views.ShopeeConfigPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ShopeeManagement.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+	xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+	xmlns:res="using:ShopeeManagement.Services"
+	xmlns:converter="using:ShopeeManagement.Converters"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+	x:Name="root">
+	<i:Interaction.Behaviors>
+		<core:EventTriggerBehavior EventName="Loading">
+			<core:InvokeCommandAction Command="{Binding ShopeeConfigPageLoading}"/>
+		</core:EventTriggerBehavior>
+		<core:EventTriggerBehavior EventName="Disappearing">
+			<core:InvokeCommandAction Command="{Binding ShopeeConfigPageOnDisappearing}"/>
+		</core:EventTriggerBehavior>
+	</i:Interaction.Behaviors>
+	
+	<Page.Resources>
+		<converter:StringToUriConverter x:Key="StringToUri"/>
+		<converter:StringToCurrencyConverter x:Key="StringToCurrency"/>
+		<converter:IntegerToBooleanConverter x:Key="IntToBool" />
+		<converter:BooleanToInverterBoolean x:Key="BooleanToIrBoolean" />
+	</Page.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="50"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="600"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0">
+				<Grid Padding="0 0 0 10">
+					<ScrollViewer>
+						<StackPanel>
+							<Grid Padding="10 12 10 0">
+								<StackPanel>
+									<TextBlock Text="{Binding TbxAnnounce}"
+										   FontSize="25"
+										   Foreground="#E74B2C"/>
+									<TextBlock Text="{Binding TbxAutomatic}"
+										   FontSize="16"
+										   Margin="0 10 0 0"
+										   TextWrapping="Wrap"/>
+									<TextBlock Text="{Binding TbxDefault}"
+										   FontSize="16"
+										   Margin="0 10 0 0"
+										   TextWrapping="Wrap"/>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="50"/>
+											<ColumnDefinition Width="2*"/>
+										</Grid.ColumnDefinitions>
+										<Grid Grid.Column="1">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="100"/>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="200"/>
+											</Grid.ColumnDefinitions>
+											<Grid Grid.Column="0">
+												<StackPanel>
+													<TextBlock Text="{Binding TbxWeight}"
+														   FontSize="16"
+														   Margin="0 10 0 0"
+														   TextWrapping="Wrap"/>
+													<TextBlock Text="{Binding TbxWidth}"
+														   FontSize="16"
+														   Margin="0 10 0 0"
+														   TextWrapping="Wrap"/>
+													<TextBlock Text="{Binding TbxHeight}"
+														   FontSize="16"
+														   Margin="0 10 0 0"
+														   TextWrapping="Wrap"/>
+													<TextBlock Text="{Binding TbxLength}"
+														   FontSize="16"
+														   Margin="0 10 0 0"
+														   TextWrapping="Wrap"/>
+												</StackPanel>
+											</Grid>
+											<Grid Grid.Column="1">
+												<StackPanel>
+													<StackPanel Orientation="Horizontal"
+															Margin="0 10 0 0">
+														<TextBlock Text="{Binding TbWeight}"
+															   FontSize="16"
+															   TextWrapping="Wrap"/>
+														<TextBlock Text="gram (g)"
+															   FontSize="16"
+															   Margin="5 0 0 0"/>
+													</StackPanel>
+													<StackPanel Orientation="Horizontal"
+															Margin="0 10 0 0">
+														<TextBlock Text="{Binding TbWidth}"
+														   FontSize="16"
+														   TextWrapping="Wrap"/>
+														<TextBlock Text="centimeter (cm)"
+															   FontSize="16"
+															   Margin="5 0 0 0"/>
+													</StackPanel>
+													<StackPanel Orientation="Horizontal"
+															Margin="0 10 0 0">
+														<TextBlock Text="{Binding TbHeight}"
+															   FontSize="16"
+															   TextWrapping="Wrap"/>
+														<TextBlock Text="centimeter (cm)"
+															   FontSize="16"
+															   Margin="5 0 0 0"/>
+													</StackPanel>
+													<StackPanel Orientation="Horizontal"
+															Margin="0 10 0 0">
+														<TextBlock Text="{Binding TbLength}"
+															   FontSize="16"
+															   TextWrapping="Wrap"/>
+														<TextBlock Text="centimeter (cm)"
+															   FontSize="16"
+															   Margin="5 0 0 0"/>
+													</StackPanel>
+												</StackPanel>
+											</Grid>
+											<Grid Grid.Column="2">
+												<Image Width="150"
+												   Height="150"
+												   Source="ms-appx:///Assets/cuboid-lwh.png"/>
+											</Grid>
+										</Grid>
+									</Grid>
+								</StackPanel>
+							</Grid>
+							<!--<Grid>
+							<Border Padding="10 12 10 5">
+								<Grid BorderBrush="#ccc"
+								  BorderThickness="1">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition/>
+										<ColumnDefinition Width="200"/>
+									</Grid.ColumnDefinitions>
+									<Grid Grid.Column="0">
+										<StackPanel Padding="10 10 10 10">
+											<StackPanel Orientation="Horizontal">
+												<TextBlock Text="{Binding TbxWeight}"
+													   FontSize="16"/>
+												<TextBlock Text="{Binding TbxWeightWarning}"
+													   FontSize="12"
+													   FontWeight="SemiBold"
+													   VerticalAlignment="Center"
+													   Foreground="Red"
+													   Visibility="{Binding isWarningTbxWeightShown}"/>
+											</StackPanel>
+											<StackPanel Orientation="Horizontal">
+												<Border BorderBrush="#ccc"
+													BorderThickness="1"
+													CornerRadius="5"
+													Margin="0 5 0 0">
+													<TextBox FontSize="15"
+														 BorderBrush="Transparent"
+														 BorderThickness="0"
+														 Padding="6"
+														 Width="200"
+														 x:Name="TbWeight"
+														 Text="{Binding TbWeight, Mode=TwoWay}"/>
+												</Border>
+												<TextBlock Text="gram (g)"
+													   FontSize="16"
+													   VerticalAlignment="Center"
+													   Margin="10 0 0 0"/>
+											</StackPanel>
+											<StackPanel Orientation="Horizontal"
+													Margin="0 5 0 0">
+												<TextBlock Text="{Binding TbxWidth}"
+													   FontSize="16"/>
+												<TextBlock Text="{Binding TbxWidthWarning}"
+													   FontSize="12"
+													   FontWeight="SemiBold"
+													   VerticalAlignment="Center"
+													   Foreground="Red"
+													   Visibility="{Binding isWarningTbxWidthShown}"/>
+											</StackPanel>
+											<StackPanel Orientation="Horizontal">
+												<Border BorderBrush="#ccc"
+													BorderThickness="1"
+													CornerRadius="5"
+													Margin="0 5 0 0">
+													<TextBox FontSize="15"
+														 BorderBrush="Transparent"
+														 BorderThickness="0"
+														 Padding="6"
+														 Width="200"
+														 Text="{Binding TbWidth,Mode=TwoWay}"/>
+												</Border>
+												<TextBlock Text="centimeter (cm)"
+													   FontSize="16"
+													   VerticalAlignment="Center"
+													   Margin="10 0 0 0"/>
+											</StackPanel>
+											<StackPanel Orientation="Horizontal"
+													Margin="0 5 0 0">
+												<TextBlock Text="{Binding TbxHeight}"
+													   FontSize="16"/>
+												<TextBlock Text="{Binding TbxHeightWarning}"
+													   FontSize="12"
+													   FontWeight="SemiBold"
+													   VerticalAlignment="Center"
+													   Foreground="Red"
+													   Visibility="{Binding isWarningTbxHeightShown}"/>
+											</StackPanel>
+											<StackPanel Orientation="Horizontal">
+												<Border BorderBrush="#ccc"
+													BorderThickness="1"
+													CornerRadius="5"
+													Margin="0 5 0 0">
+													<TextBox FontSize="15"
+														 BorderBrush="Transparent"
+														 BorderThickness="0"
+														 Padding="6"
+														 Width="200"
+														 Text="{Binding TbHeight,Mode=TwoWay}"/>
+												</Border>
+												<TextBlock Text="centimeter (cm)"
+													   FontSize="16"
+													   VerticalAlignment="Center"
+													   Margin="10 0 0 0"/>
+											</StackPanel>
+											<StackPanel Orientation="Horizontal"
+													Margin="0 5 0 0">
+												<TextBlock Text="{Binding TbxLength}"
+													   FontSize="16"/>
+												<TextBlock Text="{Binding TbxLengthWarning}"
+													   FontSize="12"
+													   FontWeight="SemiBold"
+													   VerticalAlignment="Center"
+													   Foreground="Red"
+													   Visibility="{Binding isWarningTbxLengthShown}"/>
+											</StackPanel>
+											<StackPanel Orientation="Horizontal">
+												<Border BorderBrush="#ccc"
+													BorderThickness="1"
+													CornerRadius="5"
+													Margin="0 5 0 0">
+													<TextBox FontSize="15"
+														 BorderBrush="Transparent"
+														 BorderThickness="0"
+														 Padding="6"
+														 Width="200"
+														 Text="{Binding TbLength, Mode=TwoWay}"/>
+												</Border>
+												<TextBlock Text="centimeter (cm)"
+													   FontSize="16"
+													   VerticalAlignment="Center"
+													   Margin="10 0 0 0"/>
+											</StackPanel>
+										</StackPanel>
+									</Grid>
+									<Grid Grid.Column="1">
+										<Image Width="180"
+										   Height="180"
+										   Source="ms-appx:///Assets/cuboid-lwh.png"/>
+									</Grid>
+								</Grid>
+							</Border>
+							<Grid Background="White"
+							  Height="25"
+							  Width="Auto"
+							  VerticalAlignment="Top"
+							  HorizontalAlignment="Left"
+							  Margin="15 0 0 0"
+							  Padding="5 0 5 0">
+								<TextBlock Text="{Binding TbxDimensionSection}"
+									   FontSize="16"
+									   TextAlignment="Center"/>
+							</Grid>
+						</Grid>-->
+							<!--<Grid Margin="0 0 0 0">
+							<Grid.Resources>
+								<res:StaticResources x:Key="ListCategoriesResource"/>
+							</Grid.Resources>
+							<Border Padding="10 12 10 5">
+								<StackPanel Padding="10 10 10 10"
+									BorderBrush="#ccc"
+									BorderThickness="1">
+									<TextBlock Text="{Binding TbxMainCategory}"
+										   FontSize="16"/>
+									<Border BorderBrush="#ccc"
+									BorderThickness="1"
+									CornerRadius="5"
+									Margin="0 5 0 0"
+									Width="200"
+									HorizontalAlignment="Left">
+										<ComboBox HorizontalAlignment="Stretch"
+										  BorderBrush="Transparent"
+										  BorderThickness="0"
+										  ItemsSource="{Binding ListCategories}"
+										  SelectedItem="{Binding SelectedMainCategory, Mode=TwoWay}"
+										  PlaceholderText="{Binding CbxChoosingMainCategory}"
+										  PlaceholderForeground="#ccc">
+											<ComboBox.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="30"/>
+															<ColumnDefinition/>
+														</Grid.ColumnDefinitions>
+														<Grid Grid.Column="0">
+															<Image Source="{Binding main.image, Converter={StaticResource StringToUri}}"
+														   Stretch="UniformToFill"
+														   Width="25"
+														   Height="25"
+														   HorizontalAlignment="Center"/>
+														</Grid>
+														<Grid Grid.Column="1">
+															<TextBlock Text="{Binding main.display_name}"
+															   FontSize="15"
+															   Margin="10 0 0 0"
+															   VerticalAlignment="Center"
+															   TextWrapping="NoWrap"
+															   TextTrimming="CharacterEllipsis"/>
+														</Grid>
+													</Grid>
+												</DataTemplate>
+											</ComboBox.ItemTemplate>
+										</ComboBox>
+									</Border>
+									<TextBlock Text="{Binding TbxSubCategory}"
+									   FontSize="16"
+									   Visibility="{Binding isSubCategoriesShown}"/>
+									<Border BorderBrush="#ccc"
+									BorderThickness="1"
+									CornerRadius="5"
+									Margin="0 5 0 0"
+									Visibility="{Binding isSubCategoriesShown}"
+									Width="200"
+									HorizontalAlignment="Left">
+
+										<ComboBox HorizontalAlignment="Stretch"
+										  BorderBrush="Transparent"
+										  BorderThickness="0"
+										  x:Name="CbxSubCategories"
+										  ItemsSource="{Binding ListSubCategories}"
+										  SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay}"
+										  PlaceholderText="{Binding TbxChooseSubCategory}"
+										  PlaceholderForeground="#ccc"
+										  Visibility="{Binding isSubCategoriesShown}">
+											<ComboBox.ItemTemplate>
+												<DataTemplate>
+													<Grid>
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="30"/>
+															<ColumnDefinition/>
+														</Grid.ColumnDefinitions>
+														<Grid Grid.Column="0">
+															<Image Source="{Binding image,Converter={StaticResource StringToUri}}"
+														   Stretch="UniformToFill"
+														   Width="25"
+														   Height="25"
+														   HorizontalAlignment="Center"/>
+														</Grid>
+														<Grid Grid.Column="1">
+															<TextBlock Text="{Binding display_name}"
+															   FontSize="15"
+															   VerticalAlignment="Center"
+															   Margin="10 0 0 0"
+															   TextWrapping="NoWrap"
+															   TextTrimming="CharacterEllipsis"/>
+														</Grid>
+													</Grid>
+												</DataTemplate>
+											</ComboBox.ItemTemplate>
+										</ComboBox>
+									</Border>
+								</StackPanel>
+							</Border>
+							<Grid Background="White"
+						  Height="25"
+						  Width="Auto"
+						  VerticalAlignment="Top"
+						  HorizontalAlignment="Left"
+						  Margin="15 0 0 0"
+							  Padding="5 0 5 0">
+								<TextBlock Text="{Binding TbxCategorySection}"
+								   FontSize="16"
+								   TextAlignment="Center"/>
+							</Grid>
+						</Grid>-->
+							<Grid Margin="0 10 0 0">
+								<Grid.Resources>
+									<res:StaticResources x:Key="ListCategoriesResource"/>
+								</Grid.Resources>
+								<Border Padding="10 12 10 0">
+									<StackPanel Padding="10 10 10 0"
+									BorderBrush="#ccc"
+									BorderThickness="1">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="{Binding TbxEstDate}"
+													   FontSize="16"/>
+											<TextBlock Text="{Binding TbxShippingWarning}"
+													   FontSize="12"
+													   FontWeight="SemiBold"
+													   VerticalAlignment="Center"
+													   Foreground="Red"
+													   Visibility="{Binding isWarningTbxDayShown}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<Border BorderBrush="#ccc"
+													BorderThickness="1"
+													CornerRadius="5"
+													Margin="0 5 0 0">
+												<TextBox FontSize="15"
+														 BorderBrush="Transparent"
+														 BorderThickness="0"
+														 Padding="6"
+														 Width="200"
+														 Text="{Binding TbEstimatedDate, Mode=TwoWay}"
+												 IsReadOnly ="{Binding ElementName=TwIsPreOrder, Path=IsOn, Converter={StaticResource BooleanToIrBoolean}}"/>
+											</Border>
+											<TextBlock Text="{Binding TbxDay}"
+													   FontSize="16"
+													   VerticalAlignment="Center"
+													   Margin="10 0 0 0"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal"
+											Margin="0 5 0 0">
+											<TextBlock Text="{Binding TbxPreOrder}"
+											   FontSize="16"
+											   VerticalAlignment="Center"/>
+											<ToggleSwitch Width="80"
+												  HorizontalAlignment="Right"
+												  VerticalAlignment="Center"
+												  IsOn="{Binding isPreorder, Mode=TwoWay}"
+												  Margin="55 0 0 0"
+												  x:Name="TwIsPreOrder">
+												<ToggleSwitch.Resources>
+													<ResourceDictionary>
+														<ResourceDictionary.ThemeDictionaries>
+															<ResourceDictionary x:Key="Light">
+																<SolidColorBrush x:Key="ToggleSwitchFillOn" Color="#E74B2C"/>
+																<SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="#E74B2C"/>
+																<SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="#E74B2C"/>
+															</ResourceDictionary>
+														</ResourceDictionary.ThemeDictionaries>
+													</ResourceDictionary>
+												</ToggleSwitch.Resources>
+											</ToggleSwitch>
+										</StackPanel>
+									</StackPanel>
+								</Border>
+								<Grid Background="White"
+						  Height="25"
+						  Width="Auto"
+						  VerticalAlignment="Top"
+						  HorizontalAlignment="Left"
+						  Margin="15 0 0 0"
+							  Padding="5 0 5 0">
+									<TextBlock Text="{Binding TbxShippingSection}"
+								   FontSize="16"
+								   TextAlignment="Center"/>
+								</Grid>
+							</Grid>
+							<Grid Margin="0 0 0 0"
+						  Visibility="{Binding isSetShippingFeeShown}">
+								<Grid.Resources>
+									<res:StaticResources x:Key="ListCategoriesResource"/>
+								</Grid.Resources>
+								<Border Padding="10 17 10 0">
+									<StackPanel Padding="10 10 10 0"
+									BorderBrush="#ccc"
+									BorderThickness="1">
+										<StackPanel Orientation="Horizontal">
+											<TextBlock Text="{Binding TbxSetShippingFee}"
+													   FontSize="16"/>
+											<TextBlock Text="{Binding TbxShippingFeeWarning}"
+													   FontSize="12"
+													   FontWeight="SemiBold"
+													   VerticalAlignment="Center"
+													   Foreground="Red"
+													   Visibility="{Binding isWarningTbxShippingFeeShown}"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal">
+											<Border BorderBrush="#ccc"
+													BorderThickness="1"
+													CornerRadius="5"
+													Margin="0 5 0 0">
+												<TextBox FontSize="15"
+														 BorderBrush="Transparent"
+														 BorderThickness="0"
+														 Padding="6"
+														 Width="200"
+														 Text="{Binding TbShippingFee, Mode=TwoWay}"
+												 IsReadOnly ="{Binding ElementName=TwIsCoverShippingFee, Path=IsOn}"/>
+											</Border>
+											<TextBlock Text="{Binding TbxCurrency}"
+													   FontSize="16"
+													   VerticalAlignment="Center"
+													   Margin="10 0 0 0"/>
+										</StackPanel>
+										<StackPanel Orientation="Horizontal"
+											Margin="0 5 0 0">
+											<TextBlock Text="{Binding TbxCoverShippingFee}"
+											   FontSize="16"
+											   VerticalAlignment="Center"/>
+											<ToggleSwitch Width="80"
+												  HorizontalAlignment="Right"
+												  VerticalAlignment="Center"
+												  IsOn="{Binding isCoverShippingFee, Mode=TwoWay}"
+												  Margin="55 0 0 0"
+												  x:Name="TwIsCoverShippingFee">
+												<ToggleSwitch.Resources>
+													<ResourceDictionary>
+														<ResourceDictionary.ThemeDictionaries>
+															<ResourceDictionary x:Key="Light">
+																<SolidColorBrush x:Key="ToggleSwitchFillOn" Color="#E74B2C"/>
+																<SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="#E74B2C"/>
+																<SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="#E74B2C"/>
+															</ResourceDictionary>
+														</ResourceDictionary.ThemeDictionaries>
+													</ResourceDictionary>
+												</ToggleSwitch.Resources>
+											</ToggleSwitch>
+										</StackPanel>
+									</StackPanel>
+								</Border>
+								<Grid Background="White"
+						  Height="25"
+						  Width="Auto"
+						  VerticalAlignment="Top"
+						  HorizontalAlignment="Left"
+						  Margin="15 5 0 0"
+							  Padding="5 0 5 0">
+									<TextBlock Text="{Binding TbxShippingFeeSection}"
+								   FontSize="16"
+								   TextAlignment="Center"/>
+								</Grid>
+							</Grid>
+						</StackPanel>
+					</ScrollViewer>
+				</Grid>
+			</Grid>
+			<Grid Grid.Column="1">
+				<Grid Grid.Row="0">
+					<Pivot>
+						<PivotItem Header="{Binding TbxLogisticChannel}">
+							<ListView ItemsSource="{Binding ListLogisticsChannelClone}">
+								<ListView.ItemContainerStyle>
+									<Style TargetType="ListViewItem">
+										<Setter Property="Padding" Value="0"/>
+										<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+										<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+									</Style>
+								</ListView.ItemContainerStyle>
+								<ListView.ItemTemplate>
+									<DataTemplate>
+										<Grid HorizontalAlignment="Stretch">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="*"/>
+												<ColumnDefinition Width="100"/>
+											</Grid.ColumnDefinitions>
+											<Grid Grid.Column="0">
+												<Grid.RowDefinitions>
+													<RowDefinition/>
+													<RowDefinition/>
+												</Grid.RowDefinitions>
+												<Grid Grid.Row="0"
+											  Height="32">
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition/>
+														<ColumnDefinition Width="200"/>
+													</Grid.ColumnDefinitions>
+													<Grid Grid.Column="0">
+														<TextBlock Text="{Binding name}"
+														   FontSize="18"
+														   FontWeight="SemiBold"
+														   VerticalAlignment="Center"/>
+													</Grid>
+													<Grid Grid.Column="1">
+														<StackPanel Orientation="Horizontal">
+															<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxShippingFee}"
+														   FontSize="15"
+														   VerticalAlignment="Center"/>
+															<TextBlock Text="{Binding price}"
+															   FontSize="15"
+															   Margin="10 0 0 0"
+															   VerticalAlignment="Center"/>
+														</StackPanel>
+													</Grid>
+												</Grid>
+												<Grid Grid.Row="1">
+													<StackPanel Padding="10 5 5 5">
+														<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxRestric}"/>
+														<Grid Margin="10 5 0 0">
+															<Grid.ColumnDefinitions>
+																<ColumnDefinition Width="125"/>
+																<ColumnDefinition/>
+															</Grid.ColumnDefinitions>
+															<Grid Grid.Column="0">
+																<StackPanel>
+																	<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxMaxWeight}"/>
+																	<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxMinWeight}"
+																	   Margin="0 5 0 0"/>
+																	<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxMaxHeight}"
+																	   Margin="0 5 0 0"/>
+																	<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxMaxWidth}"
+																	   Margin="0 5 0 0"/>
+																	<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxMaxLength}"
+																	   Margin="0 5 0 0"/>
+																</StackPanel>
+															</Grid>
+															<Grid Grid.Column="1">
+																<StackPanel>
+																	<StackPanel Orientation="Horizontal">
+																		<TextBlock Text="{Binding limits.item_max_weight}"/>
+																		<TextBlock Text="kilogram (kg)"
+																		   Margin="5 0 0 0"/>
+																	</StackPanel>
+																	<StackPanel Orientation="Horizontal"
+																		Margin="0 5 0 0">
+																		<TextBlock Text="{Binding limits.item_min_weight}"/>
+																		<TextBlock Text="kilogram (kg)"
+																		   Margin="5 0 0 0"/>
+																	</StackPanel>
+																	<StackPanel Orientation="Horizontal"
+																		Margin="0 5 0 0">
+																		<TextBlock Text="{Binding limits.item_max_dimension.height}"/>
+																		<TextBlock Text="centimeter (cm)"
+																		   Margin="5 0 0 0"/>
+																	</StackPanel>
+																	<StackPanel Orientation="Horizontal"
+																		Margin="0 5 0 0">
+																		<TextBlock Text="{Binding limits.item_max_dimension.width}"/>
+																		<TextBlock Text="centimeter (cm)"
+																		   Margin="5 0 0 0"/>
+																	</StackPanel>
+																	<StackPanel Orientation="Horizontal"
+																		Margin="0 5 0 0">
+																		<TextBlock Text="{Binding limits.item_max_dimension.length}"/>
+																		<TextBlock Text="centimeter (cm)"
+																		   Margin="5 0 0 0"/>
+																	</StackPanel>
+																</StackPanel>
+															</Grid>
+														</Grid>
+													</StackPanel>
+												</Grid>
+											</Grid>
+											<Grid Grid.Column="1">
+												<ToggleSwitch Width="80"
+														  HorizontalAlignment="Right"
+														  VerticalAlignment="Top"
+														  IsOn="{Binding enabled, Converter={StaticResource IntToBool},Mode=TwoWay}">
+													<ToggleSwitch.Resources>
+														<ResourceDictionary>
+															<ResourceDictionary.ThemeDictionaries>
+																<ResourceDictionary x:Key="Light">
+																	<SolidColorBrush x:Key="ToggleSwitchFillOn" Color="#E74B2C"/>
+																	<SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="#E74B2C"/>
+																	<SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="#E74B2C"/>
+																</ResourceDictionary>
+															</ResourceDictionary.ThemeDictionaries>
+														</ResourceDictionary>
+													</ToggleSwitch.Resources>
+												</ToggleSwitch>
+											</Grid>
+										</Grid>
+									</DataTemplate>
+								</ListView.ItemTemplate>
+							</ListView>
+						</PivotItem>
+					</Pivot>
+				</Grid>
+			</Grid>
+		</Grid>
+		<Grid Grid.Row="1"
+				  BorderBrush="#ccc"
+				  BorderThickness="0 1 0 0"
+				  Margin="10 0 10 0">
+			<Grid Margin="0 5 0 5"
+					  BorderBrush="#ccc"
+					  BorderThickness="0 0 0 0">
+				<Border CornerRadius="5"
+						Width="300"
+						Height="35"
+						VerticalAlignment="Center">
+					<Button VerticalAlignment="Bottom"
+									HorizontalAlignment="Stretch"
+									Background="#E74B2C"
+									Foreground="White"
+									x:Name="BtApplySetting"
+									Height="35"
+									BorderBrush="Transparent"
+									BorderThickness="0"
+										IsEnabled="{Binding isBtApplyConfigEnable}">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="&#xE71E;"
+												   FontFamily="Segoe MDL2 Assets"
+												   FontSize="16"
+												   VerticalAlignment="Bottom"/>
+							<TextBlock  Text="{Binding TbxSaveConfig}"
+													FontSize="16"
+													Margin="5 0 0 0"/>
+						</StackPanel>
+						<i:Interaction.Behaviors>
+							<core:EventTriggerBehavior EventName="Tapped">
+								<core:InvokeCommandAction Command="{Binding BtApplyConfigTapped}"/>
+							</core:EventTriggerBehavior>
+						</i:Interaction.Behaviors>
+					</Button>
+				</Border>
+			</Grid>
+		</Grid>
+	</Grid>
+</Page>

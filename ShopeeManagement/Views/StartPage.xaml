@@ -1,0 +1,226 @@
+﻿<Page
+    x:Class="ShopeeManagement.Views.StartPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ShopeeManagement.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+	xmlns:converter="using:ShopeeManagement.Converters"
+	xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+	xmlns:media="using:Microsoft.Xaml.Interactions.Media"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+	<Page.Resources>
+		<converter:StringToLocalUriConverter x:Key="StringToLocalUri"/>
+		<converter:OpacityToBooleanConverter x:Key="OpacityToBoolean"/>
+		<converter:VisibilityToInvisibilityConverter x:Key="VisibilityToInvisibility"/>
+		<Storyboard x:Name="SbGrStartPageShown">
+			<DoubleAnimation Duration="0:0:2" To="1"
+							 Storyboard.TargetProperty="Opacity"
+							 Storyboard.TargetName="GrStartPage"/>
+		</Storyboard>
+
+		<Storyboard x:Name="SbCheckingConnectionShown">
+			<DoubleAnimation Duration="0:0:1" To="1"
+							 Storyboard.TargetProperty="Opacity"
+							 Storyboard.TargetName="GrCheckingConnection"/>
+		</Storyboard>
+		<Storyboard x:Name="SbCheckingConnectionHidden">
+			<DoubleAnimation Duration="0:0:0.5" To="0"
+							 Storyboard.TargetProperty="Opacity"
+							 Storyboard.TargetName="GrCheckingConnection"/>
+		</Storyboard>
+
+		<Storyboard x:Name="SbWelcomeShown">
+			<DoubleAnimation Duration="0:0:0.5" To="1"
+							 Storyboard.TargetProperty="Opacity"
+							 Storyboard.TargetName="GrWelcome"/>
+		</Storyboard>
+		<Storyboard x:Name="SbWelcomeHidden">
+			<DoubleAnimation Duration="0:0:2" To="0"
+							 Storyboard.TargetProperty="Opacity"
+							 Storyboard.TargetName="GrWelcome"/>
+		</Storyboard>
+
+	</Page.Resources>
+	<Grid>
+		<Grid Padding="10 10 10 0">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition Height="50"/>
+			</Grid.RowDefinitions>
+			<Grid Grid.Row="0">
+				<WebView Source="{Binding WvStartPageSource}"
+						 Visibility="{Binding ElementName=GrWelcome, Path=Visibility, Converter={StaticResource VisibilityToInvisibility}}">
+					<i:Interaction.Behaviors>
+						<core:EventTriggerBehavior EventName="NavigationCompleted">
+							<core:InvokeCommandAction Command="{Binding WvStartPageNavigated}"/>
+						</core:EventTriggerBehavior>
+					</i:Interaction.Behaviors>
+				</WebView>
+			</Grid>
+			<Grid Grid.Row="1"
+				  BorderBrush="#ccc"
+				  BorderThickness="0 1 0 0">
+				<StackPanel VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						Orientation="Horizontal"
+						Grid.Row="1">
+					<Border Width="250"
+						Height="40"
+						BorderBrush="#444"
+						BorderThickness="1"
+						CornerRadius="5"
+						Background="Transparent">
+						<ComboBox Width="250"
+							  Height="40"
+							  ItemsSource="{Binding ListShopeeServer}"
+							  SelectedItem="{Binding SelectedShopeeServer, Mode=TwoWay}"
+                              SelectedIndex="{Binding SelectedShopeeServerIndex, Mode=TwoWay}"
+							  BorderBrush="Transparent"
+							  BorderThickness="0"
+							  x:Name="CbxRegion"
+							  PlaceholderText="Choose your proper region"
+							  PlaceholderForeground="#444">
+							<ComboBox.ItemTemplate>
+								<DataTemplate>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="40"/>
+											<ColumnDefinition/>
+										</Grid.ColumnDefinitions>
+										<Grid Grid.Column="0">
+											<Image Source="{Binding ImgUri, Converter={StaticResource StringToLocalUri}}"
+										   Stretch="UniformToFill"
+										   Height="30"/>
+										</Grid>
+										<Grid Grid.Column="1">
+											<TextBlock Text="{Binding Region}"
+											   VerticalAlignment="Center"
+											   Margin="10 0 0 0"/>
+										</Grid>
+									</Grid>
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</Border>
+					<Grid x:Name="GrStartPage"
+						  Opacity="0"
+						  Tag="{Binding GrStartPageTag}"
+						  Visibility="{Binding ElementName=GrStartPage, Path=Opacity, Converter={StaticResource OpacityToBoolean}}">
+						<i:Interaction.Behaviors>
+							<core:DataTriggerBehavior Binding="{Binding Tag, ElementName=GrStartPage}" Value="Visible">
+								<media:ControlStoryboardAction Storyboard="{StaticResource SbGrStartPageShown}" ControlStoryboardOption="Play"/>
+							</core:DataTriggerBehavior>
+						</i:Interaction.Behaviors>
+						<Border Width="40"
+								Height="40"
+								BorderBrush="{Binding ElementName=BtStartPage, Path=Foreground}"
+								BorderThickness="1"
+								CornerRadius="20"
+								Margin="10 0 0 0">
+							<Button Padding="0"
+									Background="Transparent"
+									HorizontalAlignment="Stretch"
+									x:Name="BtStartPage">
+								<StackPanel Orientation="Vertical"
+												HorizontalAlignment="Stretch">
+									<TextBlock FontFamily="Segoe MDL2 Assets"
+												   Text="&#xF5B0;"
+												   TextAlignment="Center"
+												   FontSize="25"
+												   VerticalAlignment="Center">
+									</TextBlock>
+								</StackPanel>
+								<Button.Resources>
+									<ResourceDictionary>
+										<ResourceDictionary.ThemeDictionaries>
+											<ResourceDictionary x:Key="Light">
+												<SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+												<SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent"/>
+												<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+												<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent"/>
+												<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+												<SolidColorBrush x:Key="ButtonForegroundPressed" Color="Red"/>
+												<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent"/>
+												<SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent"/>
+											</ResourceDictionary>
+										</ResourceDictionary.ThemeDictionaries>
+									</ResourceDictionary>
+								</Button.Resources>
+								<i:Interaction.Behaviors>
+									<core:EventTriggerBehavior EventName="Tapped">
+										<core:InvokeCommandAction Command="{Binding BtStartPageTapped}"
+															  CommandParameter="{Binding ElementName=CbxRegion, Path=SelectedItem}"/>
+									</core:EventTriggerBehavior>
+								</i:Interaction.Behaviors>
+							</Button>
+						</Border>
+					</Grid>
+				</StackPanel>
+			</Grid>
+		</Grid>
+		<Grid Background="#eee"
+			  Opacity="0"
+			  x:Name="GrCheckingConnection"
+			  Tag="{Binding GrCheckingConnectionTag}"
+			  Visibility="{Binding ElementName=GrCheckingConnection, Path=Opacity, Converter={StaticResource OpacityToBoolean}}">
+			<i:Interaction.Behaviors>
+				<core:DataTriggerBehavior Binding="{Binding Tag, ElementName=GrCheckingConnection}" Value="Visible">
+					<media:ControlStoryboardAction Storyboard="{StaticResource SbCheckingConnectionShown}" ControlStoryboardOption="Play"/>
+				</core:DataTriggerBehavior>
+				<core:DataTriggerBehavior Binding="{Binding Tag, ElementName=GrCheckingConnection}" Value="Collapsed">
+					<media:ControlStoryboardAction Storyboard="{StaticResource SbCheckingConnectionHidden}" ControlStoryboardOption="Play"/>
+				</core:DataTriggerBehavior>
+			</i:Interaction.Behaviors>
+			<ProgressRing IsActive="True"
+						  Width="40"
+						  Height="40"
+						  IsTabStop="True"/>
+			<TextBlock Text="{Binding ConnectionStatus}"
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Center"
+					   Margin="0 55 0 0"/>
+		</Grid>
+		<Grid Background="#eee"
+			  Opacity="0"
+			  x:Name="GrWelcome"
+			  Tag="{Binding GrWelcomeTag}"
+			  Visibility="{Binding ElementName=GrWelcome, Path=Opacity, Converter={StaticResource OpacityToBoolean}}">
+			<i:Interaction.Behaviors>
+				<core:DataTriggerBehavior Binding="{Binding Tag, ElementName=GrWelcome}" Value="Visible">
+					<media:ControlStoryboardAction Storyboard="{StaticResource SbWelcomeShown}" ControlStoryboardOption="Play"/>
+				</core:DataTriggerBehavior>
+				<core:DataTriggerBehavior Binding="{Binding Tag, ElementName=GrWelcome}" Value="Collapsed">
+					<media:ControlStoryboardAction Storyboard="{StaticResource SbWelcomeHidden}" ControlStoryboardOption="Play"/>
+				</core:DataTriggerBehavior>
+			</i:Interaction.Behaviors>
+			<TextBlock Text="WELCOME TO SHOPEE UP"
+					   FontWeight="SemiBold"
+					   Foreground="#333"
+					   VerticalAlignment="Center"
+					   HorizontalAlignment="Center"
+					   FontSize="50"/>
+		</Grid>
+		<Grid>
+			<Frame x:Name="FrStartPage">
+				<Frame.ContentTransitions>
+					<TransitionCollection>
+						<NavigationThemeTransition>
+							<NavigationThemeTransition.DefaultNavigationTransitionInfo>
+								<DrillInNavigationTransitionInfo/>
+							</NavigationThemeTransition.DefaultNavigationTransitionInfo>
+						</NavigationThemeTransition>
+					</TransitionCollection>
+				</Frame.ContentTransitions>
+				<i:Interaction.Behaviors>
+					<core:EventTriggerBehavior EventName="Loaded">
+						<core:InvokeCommandAction Command="{Binding FrStartPageLoaded}"
+														  CommandParameter="{Binding ElementName=FrStartPage}"/>
+					</core:EventTriggerBehavior>
+				</i:Interaction.Behaviors>
+			</Frame>
+		</Grid>
+    </Grid>
+</Page>

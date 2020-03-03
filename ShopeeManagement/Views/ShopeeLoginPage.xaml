@@ -1,0 +1,540 @@
+﻿<Page
+    x:Class="ShopeeManagement.Views.ShopeeLoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ShopeeManagement.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+	xmlns:i="using:Microsoft.Xaml.Interactivity"
+	xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+	xmlns:media="using:Microsoft.Xaml.Interactions.Media"
+	xmlns:res="using:ShopeeManagement.Services"
+	xmlns:converter="using:ShopeeManagement.Converters"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+	x:Name="root">
+	<i:Interaction.Behaviors>
+		<core:EventTriggerBehavior EventName="Loading">
+			<core:InvokeCommandAction Command="{Binding ShopeeLoginPageLoading}"
+											  CommandParameter="{Binding}"/>
+		</core:EventTriggerBehavior>
+	</i:Interaction.Behaviors>
+	<Page.Resources>
+		<converter:StringToUriConverter x:Key="StringToUri"/>
+		<converter:StringToStatusColorConverter x:Key="StringToColor"/>
+		<converter:IntegerToVisibilityConverter x:Key="IntToVisibility"/>
+		<res:StaticResources x:Key="Resources"/>
+		<Storyboard x:Name="StoryboardGridShown">
+			<DoubleAnimation Duration="0:0:0.3" To="1"
+							 Storyboard.TargetProperty="Opacity"
+							 Storyboard.TargetName="GrFormLogin"/>
+		</Storyboard>
+		<Storyboard x:Name="StoryboardGridHidden">
+			<DoubleAnimation Duration="0:0:1" To="0"
+							 Storyboard.TargetProperty="Opacity"
+							 Storyboard.TargetName="GrFormLogin"/>
+		</Storyboard>
+	</Page.Resources>
+	<Grid Padding="0 0 10 10">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="200"/>
+			</Grid.ColumnDefinitions>
+			<Grid Grid.Column="0">
+				<Pivot>
+					<PivotItem Header="{Binding TbxHeaderAccount}">
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+							<Grid Grid.Column="0">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="50"/>
+									<RowDefinition/>
+								</Grid.RowDefinitions>
+								<Grid Grid.Row="0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="2*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+									<Grid Grid.Column="0"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="0 0 5 0">
+										<TextBlock Text="{Binding TbxUserName}"
+												   FontSize="16"
+												   VerticalAlignment="Center"
+												   TextAlignment="Center"/>
+									</Grid>
+									<Grid Grid.Column="1"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="5 0 5 0">
+										<TextBlock Text="{Binding TbxMessage}"
+												   FontSize="16"
+												   VerticalAlignment="Center"
+												   TextAlignment="Center"/>
+									</Grid>
+									<Grid Grid.Column="2"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="5 0 5 0">
+										<TextBlock Text="{Binding TbxOrder}"
+												   FontSize="16"
+												   VerticalAlignment="Center"
+												   TextAlignment="Center"/>
+									</Grid>
+									<Grid Grid.Column="3"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="5 0 5 0">
+										<TextBlock Text="{Binding TbxStatus}"
+												   FontSize="16"
+												   VerticalAlignment="Center"
+												   TextAlignment="Center"/>
+									</Grid>
+									<Grid Grid.Column="4"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="5 0 5 0">
+										<TextBlock Text="{Binding TbxWeekRevenue}"
+												   FontSize="16"
+												   VerticalAlignment="Center"
+												   TextAlignment="Center"/>
+									</Grid>
+									<Grid Grid.Column="5"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="5 0 5 0">
+										<TextBlock Text="{Binding TbxMonthRevenue}"
+												   FontSize="16"
+												   VerticalAlignment="Center"
+												   TextAlignment="Center"/>
+									</Grid>
+									<Grid Grid.Column="6"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="5 0 5 0">
+										<TextBlock Text="{Binding TbxTotalRevenue}"
+												   FontSize="16"
+												   VerticalAlignment="Center"
+												   TextAlignment="Center"/>
+									</Grid>
+									<Grid Grid.Column="7"
+										  BorderBrush="#ccc"
+										  BorderThickness="0 0 0 1"
+										  Margin="5 0 0 0">
+										<Button Padding="0"
+												Height="50"
+												Background="Transparent"
+												HorizontalAlignment="Stretch">
+											<StackPanel Orientation="Horizontal">
+												<TextBlock FontFamily="Segoe MDL2 Assets"
+														   Text="&#xE74D;"
+														   TextAlignment="Center"
+														   FontSize="16"
+														   VerticalAlignment="Center"/>
+												<TextBlock Text="{Binding TbxDeleteAll}"
+														   Margin="5 0 0 0"/>
+											</StackPanel>
+											<Button.Resources>
+												<ResourceDictionary>
+													<ResourceDictionary.ThemeDictionaries>
+														<ResourceDictionary x:Key="Light">
+															<SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+															<SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent"/>
+															<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+															<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent"/>
+															<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+															<SolidColorBrush x:Key="ButtonForegroundPressed" Color="Red"/>
+															<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent"/>
+															<SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent"/>
+														</ResourceDictionary>
+													</ResourceDictionary.ThemeDictionaries>
+												</ResourceDictionary>
+											</Button.Resources>
+											<i:Interaction.Behaviors>
+												<core:EventTriggerBehavior EventName="Tapped">
+													<core:InvokeCommandAction Command="{Binding ElementName=root, Path=DataContext.BtDeleteAllAccountTapped}"
+														  CommandParameter="{Binding}"/>
+												</core:EventTriggerBehavior>
+											</i:Interaction.Behaviors>
+										</Button>
+									</Grid>
+								</Grid>
+								<Grid Grid.Row="1">
+									<ListView ItemsSource="{Binding ListShop}"
+											  SelectedItem="{Binding SelectedShop, Mode=TwoWay}">
+										<ListView.ItemContainerStyle>
+											<Style TargetType="ListViewItem">
+												<Setter Property="Padding" Value="0 10 0 10"/>
+												<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+												<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+											</Style>
+										</ListView.ItemContainerStyle>
+										<ListView.ItemTemplate>
+											<DataTemplate>
+												<Grid>
+													<Grid.ColumnDefinitions>
+														<ColumnDefinition Width="2*"/>
+														<ColumnDefinition Width="*"/>
+														<ColumnDefinition Width="*"/>
+														<ColumnDefinition Width="*"/>
+														<ColumnDefinition Width="*"/>
+														<ColumnDefinition Width="*"/>
+														<ColumnDefinition Width="*"/>
+														<ColumnDefinition Width="*"/>
+													</Grid.ColumnDefinitions>
+													<Grid Grid.Column="0"
+														  Margin="0 0 5 0">
+														<Grid.ColumnDefinitions>
+															<ColumnDefinition Width="80"/>
+															<ColumnDefinition/>
+														</Grid.ColumnDefinitions>
+														<Grid Grid.Column="0">
+															<Border CornerRadius="30"
+																	Width="60"
+																	Height="60"
+																	BorderBrush = "{Binding BorderColor}"
+																	BorderThickness="1"
+																	VerticalAlignment="Center"
+																	HorizontalAlignment="Center">
+																<Image Source="{Binding Shop.portrait, Converter={StaticResource StringToUri}}"
+																	   Stretch="UniformToFill"/>
+															</Border>
+														</Grid>
+														<Grid Grid.Column="1">
+															<TextBlock Text="{Binding Shop.username}"
+																	   FontSize="16"
+																	   VerticalAlignment="Center"
+																	   Margin="10 0 0 0"
+																	   TextWrapping="NoWrap"
+																	   TextTrimming="CharacterEllipsis"/>
+														</Grid>
+													</Grid>
+													<Grid Grid.Column="1"
+														  Margin="5 0 5 0">
+														<StackPanel Orientation="Horizontal"
+																	HorizontalAlignment="Center">
+															<TextBlock Text="{Binding NewMessageCount}"
+																   VerticalAlignment="Center"
+																   TextAlignment="Center"/>
+															<Button Padding="0"
+																	Width="Auto"
+																	Height="50"
+																	Background="Transparent"
+																	HorizontalAlignment="Center"
+																	Margin="10 0 0 0"
+																	Visibility="{Binding NewMessageCount, Converter={StaticResource IntToVisibility}}">
+																<StackPanel>
+																	<TextBlock FontFamily="Segoe MDL2 Assets"
+																			   Text="&#xE759;"
+																			   TextAlignment="Center"
+																			   FontSize="20"/>
+																	<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxMessageOpen}"
+																			   FontSize="11"
+																			   VerticalAlignment="Bottom"/>
+																</StackPanel>
+																<Button.Resources>
+																	<ResourceDictionary>
+																		<ResourceDictionary.ThemeDictionaries>
+																			<ResourceDictionary x:Key="Light">
+																				<SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+																				<SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+																				<SolidColorBrush x:Key="ButtonForegroundPressed" Color="Red"/>
+																				<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent"/>
+																			</ResourceDictionary>
+																		</ResourceDictionary.ThemeDictionaries>
+																	</ResourceDictionary>
+																</Button.Resources>
+																<i:Interaction.Behaviors>
+																	<core:EventTriggerBehavior EventName="Tapped">
+																		<core:InvokeCommandAction Command="{Binding ElementName=root, Path=DataContext.BtOpenChatPageTapped}"
+																							  CommandParameter="{Binding}"/>
+																	</core:EventTriggerBehavior>
+																</i:Interaction.Behaviors>
+															</Button>
+														</StackPanel>
+													</Grid>
+													<Grid Grid.Column="2"
+														  Margin="5 0 5 0">
+														<StackPanel Orientation="Horizontal"
+																	HorizontalAlignment="Center">
+															<TextBlock Text="{Binding NewOrderCount}"
+																   VerticalAlignment="Center"
+																   TextAlignment="Center"/>
+															<Button Padding="0"
+																	Width="Auto"
+																	Height="50"
+																	Background="Transparent"
+																	HorizontalAlignment="Center"
+																	Margin="10 0 0 0"
+																	Visibility="{Binding NewOrderCount, Converter={StaticResource IntToVisibility}}">
+																<StackPanel>
+																	<TextBlock FontFamily="Segoe MDL2 Assets"
+																			   Text="&#xE759;"
+																			   TextAlignment="Center"
+																			   FontSize="20"/>
+																	<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxOrderOpen}"
+																			   FontSize="11"
+																			   VerticalAlignment="Bottom"/>
+																</StackPanel>
+																<Button.Resources>
+																	<ResourceDictionary>
+																		<ResourceDictionary.ThemeDictionaries>
+																			<ResourceDictionary x:Key="Light">
+																				<SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+																				<SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+																				<SolidColorBrush x:Key="ButtonForegroundPressed" Color="Red"/>
+																				<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent"/>
+																				<SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent"/>
+																			</ResourceDictionary>
+																		</ResourceDictionary.ThemeDictionaries>
+																	</ResourceDictionary>
+																</Button.Resources>
+																<i:Interaction.Behaviors>
+																	<core:EventTriggerBehavior EventName="Tapped">
+																		<core:InvokeCommandAction Command="{Binding ElementName=root, Path=DataContext.BtOpenOrderPageTapped}"
+																							  CommandParameter="{Binding}"/>
+																	</core:EventTriggerBehavior>
+																</i:Interaction.Behaviors>
+															</Button>
+														</StackPanel>
+													</Grid>
+													<Grid Grid.Column="3"
+														  Margin="5 0 5 0">
+														<TextBlock Text="{Binding ShopStatus}"
+																   VerticalAlignment="Center"
+																   TextAlignment="Center"
+																   x:Name="TbxShopStatus"
+																   Foreground="{Binding ElementName=TbxShopStatus, Path=Text, Converter={StaticResource StringToColor}}"/>
+													</Grid>
+													<Grid Grid.Column="4"
+														  Margin="5 0 5 0">
+														<TextBlock Text="{Binding WeekRevenue}"
+																   VerticalAlignment="Center"
+																   TextAlignment="Center"/>
+													</Grid>
+													<Grid Grid.Column="5"
+														  Margin="5 0 5 0">
+														<TextBlock Text="{Binding MonthRevenue}"
+																   VerticalAlignment="Center"
+																   TextAlignment="Center"/>
+													</Grid>
+													<Grid Grid.Column="6"
+														  Margin="5 0 5 0">
+														<TextBlock Text="{Binding TotalRevenue}"
+																   VerticalAlignment="Center"
+																   TextAlignment="Center"
+																   Foreground="#E74B2C"/>
+													</Grid>
+													<Grid Grid.Column="7"
+														  Margin="5 0 0 0">
+														<Button Padding="0"
+																Width="Auto"
+																Height="50"
+																Background="Transparent"
+																HorizontalAlignment="Center">
+															<StackPanel>
+																<TextBlock FontFamily="Segoe MDL2 Assets"
+																		   Text="&#xE74D;"
+																		   TextAlignment="Center"
+																		   FontSize="16"/>
+																<TextBlock Text="{Binding ElementName=root, Path=DataContext.TbxDelete}"
+																		   FontSize="11"
+																		   VerticalAlignment="Bottom"/>
+															</StackPanel>
+															<Button.Resources>
+																<ResourceDictionary>
+																	<ResourceDictionary.ThemeDictionaries>
+																		<ResourceDictionary x:Key="Light">
+																			<SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+																			<SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent"/>
+																			<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+																			<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent"/>
+																			<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+																			<SolidColorBrush x:Key="ButtonForegroundPressed" Color="Red"/>
+																			<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent"/>
+																			<SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent"/>
+																		</ResourceDictionary>
+																	</ResourceDictionary.ThemeDictionaries>
+																</ResourceDictionary>
+															</Button.Resources>
+															<i:Interaction.Behaviors>
+																<core:EventTriggerBehavior EventName="Tapped">
+																	<core:InvokeCommandAction Command="{Binding ElementName=root, Path=DataContext.BtDeleteAccountTapped}"
+																							  CommandParameter="{Binding}"/>
+																</core:EventTriggerBehavior>
+															</i:Interaction.Behaviors>
+														</Button>
+													</Grid>
+												</Grid>
+											</DataTemplate>
+										</ListView.ItemTemplate>
+									</ListView>
+								</Grid>
+							</Grid>
+						</Grid>
+					</PivotItem>
+				</Pivot>
+			</Grid>
+			<Grid Grid.Column="1" Padding="10 20 10 10"
+				  BorderBrush="#ccc"
+				  BorderThickness="1 0 0 0">
+				<StackPanel>
+					<Button Padding="0"
+							Height="50"
+							Background="Transparent">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock FontFamily="Segoe MDL2 Assets"
+										   Text="&#xE8FA;"
+										   TextAlignment="Center"
+										   FontSize="20"
+										   VerticalAlignment="Center"/>
+							<TextBlock Text="{Binding TbxAddNewAccount}"
+										   Margin="10 0 0 0"
+									   FontSize="15"/>
+						</StackPanel>
+						<Button.Resources>
+							<ResourceDictionary>
+								<ResourceDictionary.ThemeDictionaries>
+									<ResourceDictionary x:Key="Light">
+										<SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+										<SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+										<SolidColorBrush x:Key="ButtonForegroundPressed" Color="Red"/>
+										<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent"/>
+									</ResourceDictionary>
+								</ResourceDictionary.ThemeDictionaries>
+							</ResourceDictionary>
+						</Button.Resources>
+						<i:Interaction.Behaviors>
+							<core:EventTriggerBehavior EventName="Tapped">
+								<core:InvokeCommandAction Command="{Binding BtAddNewAccountTapped}"/>
+							</core:EventTriggerBehavior>
+						</i:Interaction.Behaviors>
+					</Button>
+
+					<Button Padding="0"
+										Height="50"
+										Background="Transparent"
+										>
+						<StackPanel Orientation="Horizontal">
+							<TextBlock FontFamily="Segoe MDL2 Assets"
+										   Text="&#xE9A1;"
+										   TextAlignment="Center"
+										   FontSize="20"
+										   VerticalAlignment="Center"/>
+							<TextBlock Text="{Binding TbxRevenueReport}"
+										   Margin="10 0 0 0"
+									   FontSize="15"/>
+						</StackPanel>
+						<Button.Resources>
+							<ResourceDictionary>
+								<ResourceDictionary.ThemeDictionaries>
+									<ResourceDictionary x:Key="Light">
+										<SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
+										<SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonBackgroundPressed" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red"/>
+										<SolidColorBrush x:Key="ButtonForegroundPressed" Color="Red"/>
+										<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent"/>
+										<SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent"/>
+									</ResourceDictionary>
+								</ResourceDictionary.ThemeDictionaries>
+							</ResourceDictionary>
+						</Button.Resources>
+						<i:Interaction.Behaviors>
+							<core:EventTriggerBehavior EventName="Tapped">
+								<core:InvokeCommandAction Command="{Binding BtRevenueReportTapped}"
+														  CommandParameter="{Binding ElementName=wvShopeeLogin}"/>
+							</core:EventTriggerBehavior>
+						</i:Interaction.Behaviors>
+					</Button>
+				</StackPanel>
+			</Grid>
+		</Grid>
+		<Grid Visibility="{Binding isGrLoginFormShown}"
+			  Opacity="0"
+			  x:Name="GrFormLogin"
+			  Tag="{Binding TgGrFormLogin}">
+			<i:Interaction.Behaviors>
+				<core:DataTriggerBehavior Binding="{Binding Tag, ElementName=GrFormLogin}" Value="Visible">
+					<media:ControlStoryboardAction Storyboard="{StaticResource StoryboardGridShown}" ControlStoryboardOption="Play"/>
+				</core:DataTriggerBehavior>
+				<core:DataTriggerBehavior Binding="{Binding Tag, ElementName=GrFormLogin}" Value="Collapsed">
+					<media:ControlStoryboardAction Storyboard="{StaticResource StoryboardGridHidden}" ControlStoryboardOption="Play"/>
+				</core:DataTriggerBehavior>
+			</i:Interaction.Behaviors>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="25*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="40*"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+			<Grid Grid.Column="1"
+				  Grid.Row="1"
+				  BorderBrush="#ccc"
+				  BorderThickness="1"
+				  Background="#eee">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="35"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid Grid.Row="0"
+					  BorderBrush="#ccc"
+					  BorderThickness="0 0 0 1">
+					<TextBlock Text="Shopee Login"
+							   FontSize="16"
+							   VerticalAlignment="Center"
+							   Padding="10 0 0 0"/>
+					<Button HorizontalAlignment="Right"
+							Background="#E74B2C"
+							Foreground="White"
+							x:Name="BtSearchByProductName"
+							Height="35"
+							BorderBrush="Transparent"
+							BorderThickness="0">
+						<StackPanel Orientation="Horizontal">
+							<TextBlock Text="&#xEDAE;"
+									   FontFamily="Segoe MDL2 Assets"
+									   FontSize="16"
+									   VerticalAlignment="Bottom"/>
+						</StackPanel>
+						<i:Interaction.Behaviors>
+							<core:EventTriggerBehavior EventName="Tapped">
+								<core:InvokeCommandAction Command="{Binding BtTurnOfLoginFormTapped}"
+														  CommandParameter="{Binding ElementName=TbProductName}"/>
+							</core:EventTriggerBehavior>
+						</i:Interaction.Behaviors>
+					</Button>
+				</Grid>
+				<Grid Grid.Row="1">
+					<!--Se...-->
+				</Grid>
+			</Grid>
+		</Grid>
+	</Grid>
+</Page>
